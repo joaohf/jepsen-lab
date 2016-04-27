@@ -13,6 +13,8 @@ the required servers and installs Jepsen's requirements. It does this using [Ter
 You'll need [Terraform][2] installed. You'll also need an AWS account with one of your ssh keys
 uploaded to aws. You'll also need your aws access key and secret access key.
 
+Generate ssh key for control `ssh-keygen -f control`. Placeholder to figure out a better way.
+
 ## Running ##
 
 1. Clone this repository
