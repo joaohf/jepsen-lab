@@ -81,7 +81,7 @@ resource "aws_instance" "worker" {
 
 resource "template_file" "hosts" {
   depends_on = ["aws_instance.control"]
-  filename = "hosts.tpl"
+  template = "${file("${path.module}/hosts.tpl")}"
   count = 5
 
   vars {
@@ -114,7 +114,7 @@ resource "null_resource" "control-hosts" {
   depends_on = ["aws_instance.control", "template_file.hosts"]
 
   provisioner "remote-exec" {
-    inline = ["echo '${template_file.hosts.0.rendered}' | sudo tee -a /etc/hosts",
+    inline = ["echo '${template_file.hosts.0.rendered}' | sudo tee /etc/hosts",
               "ssh-keyscan -t rsa n1 >> ~/.ssh/known_hosts",
               "ssh-keyscan -t rsa n2 >> ~/.ssh/known_hosts",
               "ssh-keyscan -t rsa n3 >> ~/.ssh/known_hosts",
