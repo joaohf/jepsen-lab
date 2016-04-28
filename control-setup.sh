@@ -8,7 +8,7 @@ chmod 600 ~/.ssh/id_rsa
 # Get openjdk8
 echo 'deb http://cloudfront.debian.net/debian jessie-backports main' | sudo tee /etc/apt/sources.list.d/backports.list
 sudo apt-get update
-sudo apt-get install -y openjdk-8-jre openjdk-8-jre-headless git
+sudo apt-get install -y openjdk-8-jre openjdk-8-jre-headless git gnuplot
 
 # Install Leiningen
 mkdir -p ~/.bin
