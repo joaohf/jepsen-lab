@@ -25,8 +25,8 @@ resource "aws_security_group" "worker_server" {
 
 resource "aws_instance" "worker" {
   count = 5
-  ami = "ami-116d857a"
-  instance_type = "c4.large"
+  ami = "${var.worker_ami}"
+  instance_type = "${var.worker_instance_type}"
   key_name = "${aws_key_pair.jepsen-ssh.key_name}"
   vpc_security_group_ids = ["${aws_security_group.worker_server.id}"]
   associate_public_ip_address = true
@@ -54,7 +54,7 @@ resource "aws_instance" "worker" {
 
       bastion_host = "${aws_instance.control.public_ip}"
       bastion_user = "admin"
-      bastion_key_file = "${var.private_key_path}"
+      bastion_key_file = "${var.aws_keypair_private_key_path}"
     }
   }
 
@@ -74,7 +74,7 @@ resource "aws_instance" "worker" {
 
       bastion_host = "${aws_instance.control.public_ip}"
       bastion_user = "admin"
-      bastion_key_file = "${var.private_key_path}"
+      bastion_key_file = "${var.aws_keypair_private_key_path}"
     }
   }
 }
@@ -105,7 +105,7 @@ resource "template_file" "hosts" {
 
       bastion_host = "${aws_instance.control.public_ip}"
       bastion_user = "admin"
-      bastion_key_file = "${var.private_key_path}"
+      bastion_key_file = "${var.aws_keypair_private_key_path}"
     }
   }
 }
@@ -125,7 +125,7 @@ resource "null_resource" "control-hosts" {
       user = "admin"
       timeout = "1m"
       agent = false
-      key_file = "${var.private_key_path}"
+      key_file = "${var.aws_keypair_private_key_path}"
       host = "${aws_instance.control.public_ip}"
     }
   }

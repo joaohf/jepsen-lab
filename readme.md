@@ -18,12 +18,15 @@ Generate ssh key for control `ssh-keygen -f control -N ""`. Placeholder to figur
 ## Running ##
 
 1. Clone this repository
-2. Run `terraform apply`. Terraform will prompt you for the values that it needs:
-  a. The name of the ssh key that you have uploaded to aws. This is what it is called on aws.
+2. Copy `input.vars.example` to `input.vars` and edit as necessary
+2. Run `terraform apply -var-file=input.vars`. Terraform will prompt you for
+   any values that it needs, e.g.:
+  a. The name of the ssh key that you have uploaded to aws. This is what it is
+     called on aws. `aws_keypair_name` in `input.vars`
   b. Your aws access key / secret access key if you don't have the standard environment variables
-     set.
+     set. We suggest seting up `aws` CLI tools and set yor credentials in `~/.aws/credentials`
   c. The path to the previously mentioned key, this time the private key. (this is used for
-     provisioning)
+     provisioning) `aws_keypair_private_key_path` in `input.vars`
 3. Wait while it configures all of the servers
 4. ssh as `admin` into the provided ip address
 5. Clone the [Jepsen][1] repository wherever you'd like

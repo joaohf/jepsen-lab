@@ -1,7 +1,3 @@
-variable "aws_ssh_key" {}
-variable "private_key_path" {
-  default = "~/.ssh/tower"
-}
 
 resource "aws_security_group" "control_server" {
   name = "jepsen_control_server"
@@ -25,9 +21,9 @@ resource "aws_security_group" "control_server" {
 }
 
 resource "aws_instance" "control" {
-  ami = "ami-116d857a"
-  instance_type = "c4.xlarge"
-  key_name = "${var.aws_ssh_key}"
+  ami = "${var.control_ami}"
+  instance_type = "${var.control_instance_type}"
+  key_name = "${var.aws_keypair_name}"
   vpc_security_group_ids = ["${aws_security_group.control_server.id}"]
   associate_public_ip_address = true
   subnet_id = "${aws_subnet.main.id}"
@@ -50,7 +46,7 @@ resource "aws_instance" "control" {
       user = "admin"
       timeout = "1m"
       agent = false
-      key_file = "${var.private_key_path}"
+      key_file = "${var.aws_keypair_private_key_path}"
     }
   }
 
@@ -62,7 +58,7 @@ resource "aws_instance" "control" {
       user = "admin"
       timeout = "5m"
       agent = false
-      key_file = "${var.private_key_path}"
+      key_file = "${var.aws_keypair_private_key_path}"
     }
   }
 
@@ -73,7 +69,7 @@ resource "aws_instance" "control" {
       user = "admin"
       timeout = "1m"
       agent = false
-      key_file = "${var.private_key_path}"
+      key_file = "${var.aws_keypair_private_key_path}"
     }
   }
 }

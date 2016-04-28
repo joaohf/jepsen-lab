@@ -1,0 +1,8 @@
+aws_keypair_name = "my.awskeypair.name"
+aws_keypair_private_key_path = "~/.ec2/my.awskeypair.pem"
+
+# these are setup by defaults
+# control_ami = "ami-116d857a"
+# control_instance_type = "c4.xlarge"
+# worker_ami = "ami-116d857a"
+# worker_instance_type = "t2.small"
