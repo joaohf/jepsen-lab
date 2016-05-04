@@ -1,5 +1,6 @@
 variable "aws_keypair_name" {}
 variable "aws_keypair_private_key_path" {}
+variable "aws_region" {}
 
 variable "control_instance_type" {
   default = "c4.xlarge"
