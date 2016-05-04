@@ -3,3 +3,4 @@ control
 control.pub
 plan
 *.backup
+*.tfstate
